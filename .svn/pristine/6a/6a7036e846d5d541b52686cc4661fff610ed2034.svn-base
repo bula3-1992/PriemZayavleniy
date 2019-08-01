@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="BpiPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>models.bpi.Messages</class>
+    <class>models.bpi.Clients</class>
+    <class>models.bpi.Blobs</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="one"/>
+      <property name="javax.persistence.jdbc.url" value=""/>
+      <property name="javax.persistence.jdbc.password" value="1"/>
+      <property name="javax.persistence.jdbc.driver" value="org.firebirdsql.jdbc.FBDriver"/>
+      <property name="javax.persistence.jdbc.user" value="SYSDBA"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PzFilesPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <non-jta-data-source>java:/comp/env/jdbc/postgres</non-jta-data-source>
+    <class>models.pzfiles.ClientType</class>
+    <class>models.pzfiles.Journsync</class>
+    <class>models.pzfiles.Filestore</class>
+    <class>models.pzfiles.Client</class>
+    <class>models.pzfiles.DirectionType</class>
+    <class>models.pzfiles.MessageType</class>
+    <class>models.pzfiles.StatusType</class>
+    <class>models.pzfiles.Param</class>
+    <class>models.pzfiles.ContentFile</class>
+    <class>models.pzfiles.Npf</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="two"/>
+      <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.url" value=""/>
+      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="eclipselink.deploy-on-startup" value="true" /> 
+      <property name="eclipselink.target-database" value="PostgreSQL"/>
+      <property name="eclipselink.logging.level" value="ALL"/>
+      <property name="eclipselink.logging.level.sql" value="ALL"/>
+    </properties>
+  </persistence-unit>
+</persistence>

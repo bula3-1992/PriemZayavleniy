@@ -1,0 +1,17 @@
+tomcat/conf/server.xml
+Add global jdbc resource.
+
+<GlobalNamingResources>
+    	<Resource 
+		name="jdbc/postgres" 
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="org.postgresql.Driver"
+		url="jdbc:postgresql://localhost:5432/PZ_FILES2"
+		username="postgres"
+		password="postgres"
+		maxActive="10"
+		maxIdle="10"
+		maxWait="-1"
+	/>
+</GlobalNamingResources>

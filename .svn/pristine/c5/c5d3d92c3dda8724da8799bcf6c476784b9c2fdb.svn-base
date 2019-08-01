@@ -1,0 +1,462 @@
+-- Этот файл CLP создан при помощи DB2LOOK Версии "9.7" 
+-- Отметка времени: 12.01.2016 14:17:02
+-- Имя базы данных: PZ_FILES       
+-- Версия менеджера баз данных: DB2/NT64 Version 9.7.0        
+-- Кодовая страница базы данных: 1251
+-- Последовательность слияния базы данных -: UNIQUE
+
+
+CONNECT TO PZ_FILES;
+
+
+
+------------------------------------
+-- Операторы DDL для TABLESPACES --
+------------------------------------
+
+
+CREATE LARGE TABLESPACE "SYSTOOLSPACE" IN DATABASE PARTITION GROUP IBMCATGROUP 
+	 PAGESIZE 4096 MANAGED BY AUTOMATIC STORAGE 
+	 AUTORESIZE YES 
+	 INITIALSIZE 32 M 
+	 MAXSIZE NONE 
+	 EXTENTSIZE 4
+	 PREFETCHSIZE AUTOMATIC
+	 BUFFERPOOL IBMDEFAULTBP
+	 OVERHEAD 7.500000
+	 TRANSFERRATE 0.060000 
+	 NO FILE SYSTEM CACHING  
+	 DROPPED TABLE RECOVERY ON;
+
+
+CREATE USER TEMPORARY TABLESPACE "SYSTOOLSTMPSPACE" IN DATABASE PARTITION GROUP IBMCATGROUP 
+	 PAGESIZE 4096 MANAGED BY AUTOMATIC STORAGE 
+	 EXTENTSIZE 4
+	 PREFETCHSIZE AUTOMATIC
+	 BUFFERPOOL IBMDEFAULTBP
+	 OVERHEAD 7.500000
+	 TRANSFERRATE 0.060000 
+	 FILE SYSTEM CACHING  
+	 DROPPED TABLE RECOVERY OFF;
+
+
+-- Табличное пространство Mimic
+
+ALTER TABLESPACE SYSCATSPACE
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      NO FILE SYSTEM CACHING 
+      AUTORESIZE YES 
+      TRANSFERRATE 0.060000;
+
+
+ALTER TABLESPACE TEMPSPACE1
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      FILE SYSTEM CACHING 
+      TRANSFERRATE 0.060000;
+
+
+ALTER TABLESPACE USERSPACE1
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      NO FILE SYSTEM CACHING 
+      AUTORESIZE YES 
+      TRANSFERRATE 0.060000;
+
+
+------------------------------------------------
+-- Операторы DDL для схем
+------------------------------------------------
+
+
+CREATE SCHEMA "DB2ADMIN" AUTHORIZATION "DB2ADMIN";
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."CLIENT"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."CLIENT"  (
+		  "ID_CLIENT" INTEGER NOT NULL , 
+		  "CLIENT_TYPE" SMALLINT NOT NULL , 
+		  "NAME" VARCHAR(500) NOT NULL , 
+		  "PF_NOM" VARCHAR(15) )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."CLIENT"
+
+ALTER TABLE "DB2ADMIN"."CLIENT" 
+	ADD PRIMARY KEY
+		("ID_CLIENT");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."CLIENT_TYPE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."CLIENT_TYPE"  (
+		  "ID_TYPE" SMALLINT NOT NULL , 
+		  "DESCRIPTION" VARCHAR(25) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."CLIENT_TYPE"
+
+ALTER TABLE "DB2ADMIN"."CLIENT_TYPE" 
+	ADD PRIMARY KEY
+		("ID_TYPE");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."COMMON_CHECK"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."COMMON_CHECK"  (
+		  "ID" CHAR(5) NOT NULL , 
+		  "DESCRIPTION" VARCHAR(100) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."COMMON_CHECK"
+
+ALTER TABLE "DB2ADMIN"."COMMON_CHECK" 
+	ADD PRIMARY KEY
+		("ID");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."DIRECTION_TYPE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."DIRECTION_TYPE"  (
+		  "ID_DIRECTION" INTEGER NOT NULL , 
+		  "DIRECTION_TYPE" VARCHAR(25) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."DIRECTION_TYPE"
+
+ALTER TABLE "DB2ADMIN"."DIRECTION_TYPE" 
+	ADD PRIMARY KEY
+		("ID_DIRECTION");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."JOURNSYNC"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."JOURNSYNC"  (
+		  "ID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE -2147483648  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    CACHE 20  
+		    NO ORDER ) , 
+		  "SYNC_TIME" TIMESTAMP , 
+		  "SYNC_SIZE" INTEGER )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."JOURNSYNC"
+
+ALTER TABLE "DB2ADMIN"."JOURNSYNC" 
+	ADD PRIMARY KEY
+		("ID");
+
+
+
+ALTER TABLE "DB2ADMIN"."JOURNSYNC" ALTER COLUMN "ID" RESTART WITH 199;
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."MESSAGE_TYPE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."MESSAGE_TYPE"  (
+		  "TYPE" VARCHAR(20) NOT NULL , 
+		  "DESCRIPTION" VARCHAR(100) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."MESSAGE_TYPE"
+
+ALTER TABLE "DB2ADMIN"."MESSAGE_TYPE" 
+	ADD PRIMARY KEY
+		("TYPE");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."STATUS_TYPE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."STATUS_TYPE"  (
+		  "TYPE" VARCHAR(20) NOT NULL , 
+		  "DESCRIPTION" VARCHAR(100) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."STATUS_TYPE"
+
+ALTER TABLE "DB2ADMIN"."STATUS_TYPE" 
+	ADD PRIMARY KEY
+		("TYPE");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."PARAM"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."PARAM"  (
+		  "NAME" VARCHAR(30) NOT NULL , 
+		  "DESCRIPTION" VARCHAR(500) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."PARAM"
+
+ALTER TABLE "DB2ADMIN"."PARAM" 
+	ADD PRIMARY KEY
+		("NAME");
+
+
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."FILESTORE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."FILESTORE"  (
+		  "ID" BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +9223372036854775807  
+		    NO CYCLE  
+		    CACHE 20  
+		    NO ORDER ) , 
+		  "ID_MESSAGE" VARCHAR(36) , 
+		  "MESSAGE_TYPE" VARCHAR(20) , 
+		  "STATUS" VARCHAR(20) , 
+		  "FIO" VARCHAR(200) , 
+		  "COMMENT" VARCHAR(200) , 
+		  "DIRECTION" INTEGER , 
+		  "RECEIVER_ID" INTEGER , 
+		  "RECEIVE_TIME" TIMESTAMP , 
+		  "SENDER_ID" INTEGER , 
+		  "SEND_TIME" TIMESTAMP , 
+		  "CONTAINER" VARCHAR(200) , 
+		  "PROVIDER_ID" INTEGER , 
+		  "PROVIDER_TIME" TIMESTAMP , 
+		  "ADDTYPE" SMALLINT , 
+		  "SIGNER_ID" INTEGER , 
+		  "XML_NAME" VARCHAR(200) , 
+		  "P7S_NAME" VARCHAR(200) , 
+		  "CHK_EXCEPTION" VARCHAR(200) , 
+		  "CHK_FIO" VARCHAR(200) , 
+		  "CHK_SKPEP" VARCHAR(200) , 
+		  "CHK_EP" VARCHAR(200) , 
+		  "CHK_CONAS" VARCHAR(800) , 
+		  "CHK_XML" VARCHAR(200) , 
+		  "COMMON_CHK" CHAR(1) WITH DEFAULT '0' , 
+		  "TRANS_ID" VARCHAR(36) , 
+		  "CONTENT_ID" BIGINT )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."FILESTORE"
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD PRIMARY KEY
+		("ID");
+
+
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" ALTER COLUMN "ID" RESTART WITH 3340;
+
+------------------------------------------------
+-- Операторы DDL для таблицы "DB2ADMIN"."CONTENT_FILE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DB2ADMIN"."CONTENT_FILE"  (
+		  "ID" BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +0  
+		    INCREMENT BY +1  
+		    MINVALUE +0  
+		    MAXVALUE +9223372036854775807  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "FORMAT" VARCHAR(200) , 
+		  "FILE_TYPE" VARCHAR(200) , 
+		  "PRG_NAME" VARCHAR(200) , 
+		  "PRG_VRS" VARCHAR(200) , 
+		  "DATA_SOURCE" VARCHAR(200) , 
+		  "PACK_NUM" INTEGER , 
+		  "REG_TYPE" VARCHAR(200) , 
+		  "CR_PACK_INN" VARCHAR(200) , 
+		  "CR_PACK_KPP" VARCHAR(200) , 
+		  "CR_PACK_NAME" VARCHAR(200) , 
+		  "FORM" VARCHAR(200) , 
+		  "REG_NUM" VARCHAR(200) , 
+		  "CR_DEP_NAME" VARCHAR(200) , 
+		  "CR_DEP_NUM" VARCHAR(200) , 
+		  "NUM_BY_CR_DEP" INTEGER , 
+		  "DOC_COUNT" INTEGER , 
+		  "DOC_TYPE" VARCHAR(200) , 
+		  "EX_DOC_COUNT" INTEGER , 
+		  "CR_DATE" DATE , 
+		  "NUM_PACK" INTEGER , 
+		  "SNILS" VARCHAR(200) , 
+		  "FIO" VARCHAR(200) , 
+		  "SEX" VARCHAR(100) , 
+		  "BIRTH_DATE" DATE , 
+		  "COMPL_DATE" DATE , 
+		  "NPF_NAME" VARCHAR(200) , 
+		  "NPF_INN" VARCHAR(100) , 
+		  "NPF_KPP" VARCHAR(100) , 
+		  "REG_DOC_DATE" DATE , 
+		  "NUM_BY_JUR" VARCHAR(100) )   
+		 IN "USERSPACE1" ; 
+
+
+-- Операторы DDL для первичных ключей таблицы "DB2ADMIN"."CONTENT_FILE"
+
+ALTER TABLE "DB2ADMIN"."CONTENT_FILE" 
+	ADD CONSTRAINT "CC1451352021359" PRIMARY KEY
+		("ID");
+
+
+
+ALTER TABLE "DB2ADMIN"."CONTENT_FILE" ALTER COLUMN "ID" RESTART WITH 3249;
+
+-- Операторы DDL для внешних ключей таблицы "DB2ADMIN"."CLIENT"
+
+ALTER TABLE "DB2ADMIN"."CLIENT" 
+	ADD CONSTRAINT "SQL151014095124350" FOREIGN KEY
+		("CLIENT_TYPE")
+	REFERENCES "DB2ADMIN"."CLIENT_TYPE"
+		("ID_TYPE")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- Операторы DDL для внешних ключей таблицы "DB2ADMIN"."FILESTORE"
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151014094901520" FOREIGN KEY
+		("MESSAGE_TYPE")
+	REFERENCES "DB2ADMIN"."MESSAGE_TYPE"
+		("TYPE")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151014094943920" FOREIGN KEY
+		("STATUS")
+	REFERENCES "DB2ADMIN"."STATUS_TYPE"
+		("TYPE")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151014095015550" FOREIGN KEY
+		("DIRECTION")
+	REFERENCES "DB2ADMIN"."DIRECTION_TYPE"
+		("ID_DIRECTION")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151016142914150" FOREIGN KEY
+		("RECEIVER_ID")
+	REFERENCES "DB2ADMIN"."CLIENT"
+		("ID_CLIENT")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151016142922990" FOREIGN KEY
+		("SENDER_ID")
+	REFERENCES "DB2ADMIN"."CLIENT"
+		("ID_CLIENT")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151016142937440" FOREIGN KEY
+		("PROVIDER_ID")
+	REFERENCES "DB2ADMIN"."CLIENT"
+		("ID_CLIENT")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DB2ADMIN"."FILESTORE" 
+	ADD CONSTRAINT "SQL151117134216710" FOREIGN KEY
+		("COMMON_CHK")
+	REFERENCES "DB2ADMIN"."COMMON_CHECK"
+		("ID")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+
+
+
+
+
+
+---------------------------------------
+-- Оператор авторизации для табличного пространства 
+---------------------------------------
+
+ 
+GRANT USE OF TABLESPACE "SYSTOOLSTMPSPACE" TO  PUBLIC   ;
+
+COMMIT WORK;
+
+CONNECT RESET;
+
+TERMINATE;
+
+-- Заданная схема:: DB2ADMIN
+-- Создается DDL для таблиц
+
+-- Имя схемы игнорируется для раздела объединения
+-- Автоматическое связывание пакета ... 
+-- Успешное связывание
+-- Автоматическое связывание пакета ... 
+-- Успешное связывание
+;

@@ -1,0 +1,16 @@
+дополнительный тип сообщения
+для отчетов:
+  rtReports            = 1;
+  rtDSV                = 2;
+  rtInvest             = 3;
+  rtACV                = 4;
+  rtReportsACV         = 10;
+  rtOther              = 10000;
+
+для запросов:
+  rtRequestPLAT        = 50;
+  rtRequestFIOSnils    = 51;
+
+для писем:
+  rtRetroConversion    = 100;
+  rtNotification       = 105;
